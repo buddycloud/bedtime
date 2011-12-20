@@ -1,6 +1,6 @@
 {
   "name": "bedtime",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "oEmbed consumer service over XMPP",
   "homepage": "http://github.com/buddycloud/bedtime",
   "author": {
