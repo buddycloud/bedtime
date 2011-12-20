@@ -4,6 +4,7 @@ oembed = require 'oembed'
 
 NS_STANZAS = 'urn:ietf:params:xml:ns:xmpp-stanzas'
 NS_OEMBED = 'http://github.com/buddycloud/bedtime'
+NS_DISCO_INFO = 'http://jabber.org/protocol/disco#info'
 
 if process.argv.length < 3
     console.error "Usage: " + process.argv.join(" ") + " <config.json>"
@@ -30,10 +31,11 @@ conn.on 'stanza', (stanza) ->
     if stanza.getName() is 'iq' and
        stanza.attrs.type isnt 'error'
 
-        # oEmbed query specific handling
+        discoEl = stanza.getChild('query', NS_DISCO_INFO)
         oembedEl = stanza.getChild('oembed', NS_OEMBED)
         url = oembedEl?.attrs.url
         if stanza.attrs.type is 'get' and url?
+            # oEmbed query specific handling
             oembed.fetch url, oembedEl.attrs, (error, result) ->
                 if result
                     resultEl = makeReply(stanza, 'result').
@@ -48,7 +50,20 @@ conn.on 'stanza', (stanza) ->
                         c('internal-server-error', xmlns: NS_STANZAS).up().
                         c('text', xmlns: NS_STANZAS).
                         t(error.message or "No oEmbed result")
+        else if stanza.attrs.type is 'get' and discoEl?
+            # Service Discovery info requests
+            resultEl = makeReply(stanza, 'result').
+                c('query', xmlns: NS_DISCO_INFO)
+            resultEl.c 'identity',
+                category: 'automation',
+                type: 'oembed'
+                name: 'oEmbed consumer'
+            resultEl.c 'feature', var: NS_OEMBED
+            resultEl.c 'feature', var: NS_STANZAS
+            resultEl.c 'feature', var: NS_DISCO_INFO
+            conn.send resultEl.root()
         else
+            # default: feature-not-implemented
             conn.send makeReply(stanza, 'error').
                 c('error', type: 'cancel').
                 c('feature-not-implemented', xmlns: NS_STANZAS)
