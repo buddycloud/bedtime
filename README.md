@@ -6,7 +6,7 @@ Exposes oEmbed consumer functionality over XMPP.
 Installation
 ------------
 
-npm i bedtime
+    npm i bedtime
 
 Usage
 -----
