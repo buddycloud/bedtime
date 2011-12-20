@@ -10,6 +10,9 @@ if process.argv.length < 3
     process.exit 1
 
 config = JSON.parse fs.readFileSync(process.argv[2])
+if config.embedly?.key?
+    oembed.EMBEDLY_KEY = config.embedly.key
+
 config.xmpp.reconnect = true
 conn = new xmpp.Component(config.xmpp)
 

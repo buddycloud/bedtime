@@ -4,5 +4,8 @@
     "password": "***",
     "host": "localhost",
     "port": 5347
+  },
+  "embedly": {
+    "key": null
   }
 }
