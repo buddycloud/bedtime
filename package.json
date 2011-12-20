@@ -1,0 +1,31 @@
+{
+  "name": "bedtime",
+  "version": "0.0.1",
+  "description": "",
+  "homepage": "http://github.com/buddycloud/bedtime",
+  "author": {
+    "name": "Astro",
+    "email": "astro@spaceboyz.net",
+    "url": "http://spaceboyz.net/~astro/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/buddycloud/bedtime.git"
+  },
+  "bugs": {
+    "url": "https://github.com/buddycloud/bedtime/issues",
+    "email": "astro@spaceboyz.net"
+  },
+  "keywords": ["oembed", "xmpp"],
+  "scripts": {
+    "install": "coffee -c -o bin src/*.coffee"
+  },
+  "bin": {
+    "bedtime": "./bin/bedtime.js"
+  },
+  "dependencies": {
+    "oembed": ">=0.1.0",
+    "node-xmpp": ">=0.3.1",
+    "coffee-script": ">=1.2.0"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "xmpp": {
+    "jid": "oembed.example.org",
+    "password": "***",
+    "host": "localhost",
+    "port": 5347
+  }
+}
