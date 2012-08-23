@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/buddycloud/bedtime.png)](http://travis-ci.org/buddycloud/bedtime)
 bedtime
 =======
 
